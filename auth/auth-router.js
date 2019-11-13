@@ -24,13 +24,15 @@ router.post("/login", (req, res) => {
   Users.findBy({ username })
     .first()
     .then(user => {
+      console.log(user)
       if (user && bcrypt.compareSync(password, user.password)) {
         req.session.username = user.username;
+        console.log(req.session)
         res.status(200).json({
-          message: `Welcome ${user.username}!`
+          message: `Welcome, ${user.username}!`
         });
       } else {
-        res.status(401).json({ message: "Invalid Credentials" });
+        res.status(401).json({ message: "Invalid Credentials." });
       }
     })
     .catch(error => {
@@ -46,14 +48,14 @@ router.get("/logout", (req, res) => {
           .status(500)
           .json({
             message:
-              "you can check out any time you like, but you can never leave..."
+              "Unable to log out."
           });
       } else {
-        res.status(200).json({ message: "logged out successfully" });
+        res.status(200).json({ message: "Logged out successfully." });
       }
     });
   } else {
-    res.status(200).json({ message: "by felicia" });
+    res.status(200).json({ message: "No session." });
   }
 });
 

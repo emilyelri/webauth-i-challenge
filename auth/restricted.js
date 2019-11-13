@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-  console.log(req.session.username)
+  console.log(req.session)
   if (req.session && req.session.username) {
     next();
   } else {
